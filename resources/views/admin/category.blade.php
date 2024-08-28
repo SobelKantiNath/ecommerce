@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
-  <head> 
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.12.4/sweetalert2.min.js" integrity="sha512-w4LAuDSf1hC+8OvGX+CKTcXpW4rQdfmdD8prHuprvKv3MPhXH9LonXX9N2y1WEl2u3ZuUSumlNYHOlxkS/XEHA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     @include('admin.css')
     <style type="text/css">
       input[type='text']
@@ -67,11 +68,15 @@
               <table class="table_deg">
                 <tr>
                   <th>Category Name</th>
+                  <th>Edit</th>
                   <th>Delete</th>
                 </tr>
                 @foreach ($data as $data )
                      <tr> 
                       <td>{{$data->category_name}}</td>
+                      <td>
+                        <a class="btn btn-success" href="{{url('edit_category',$data->id)}}">Edit</a>
+                      </td>
                       <td>
                         <a class="btn btn-danger" onclick="confirmation(event)" href="{{url('delete_category',$data->id)}}">Delete</a>
                       </td>
@@ -87,29 +92,32 @@
     <!-- JavaScript files-->
     {{-- Cdn link file for sweet message --}}
     <script type="text/javascript">
+
       function confirmation(ev)
       {
         ev.preventDefault();//jokhon delete button a click kora hova thokon ati reloading or refresshing off rakva
         var urlToRedirect = ev.currentTarget.getAttribute('href');//href link ta nawar jonno
-        console.log(urlToRedirect);//Console a print korar jonno
+        //console.log(urlToRedirect);//Console a print korar jonno
 
-        swal({
-          title: "Are You Sure to Delete This",
+        swal.fire({  //sweet alert built in function
+          title: "Are You Sure to Delete This?",
           text: "This delete will be parmanent",
           icon: "warning",
-          buttons: true,
+          showCancelButton: true,
           dangerMode:true,
-        });
-
-        .then((willCancel)=>{
-          if(willCancel)
-          {
-            window.location.href=urlToRedirect;
+          position: "center"
+          confirmButtonText: 'Yes, delete it!',
+          cancelButtonText: 'No, keep it',
+          
+        }).then((result)=>{
+          if(result.isConfirmed){
+            window.location.href=urlToRedirect;//Cancel button a click korla delte hova na and aghar window ta thakva
           }
         });
         }
+
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.12.4/sweetalert2.min.js" integrity="sha512-w4LAuDSf1hC+8OvGX+CKTcXpW4rQdfmdD8prHuprvKv3MPhXH9LonXX9N2y1WEl2u3ZuUSumlNYHOlxkS/XEHA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
 
     <script src="{{asset('/admincss/vendor/jquery/jquery.min.js')}}"></script>
     <script src="{{asset('/admincss/vendor/popper.js/umd/popper.min.js')}}"> </script>

@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Product;
 class AdminController extends Controller
 {
     public function view_category()
@@ -67,6 +68,43 @@ class AdminController extends Controller
 
     public function add_product()
     {
-        return view('admin.add_product');
+        $category = Category::all();
+        return view('admin.add_product',compact('category'));
+    }
+
+    public function upload_product(Request $request )
+    {
+        $data = new Product;
+        $data->title = $request->title;
+        $data->description = $request->description;
+        $data->price = $request->price;
+        $data->quantity = $request->quantity;
+        $data->category = $request->category;
+        
+        $image = $request->image;
+        if($image)
+        {
+            $imagename = time().'.'.$image->getClientOriginalExtension();
+            $request->image->move('products', $imagename);//Public folder ar vitor a products name a akta folder create korva dan otar vitor store korva
+            $data->image = $imagename;
+        }
+
+        $data->save();
+
+        toastr()->timeout(3000)->closeButton()->addSuccess('Products Uploaded successfully');
+        return redirect()->back();
+    }
+
+    public function view_product()
+    {
+        $product = Product::paginate(3);
+        return view('admin.view_product', compact('product'));
+    }
+
+    public function delete_product($id)
+    {
+        $data = Product::find($id);
+        $data->delete();
+        return redirect()->back();
     }
 }

@@ -19,10 +19,18 @@
         font-size: 20px!important;
         color: white!important;
       }
-
-      input{
+      input[type='text']{
         widows: 200px;
         height: 30px;
+      }
+      textarea
+      {
+        width: 200px;
+        height: 50px;
+      }
+      .input_deg
+      {
+        padding: 15px;
       }
     </style>
   </head>
@@ -41,32 +49,41 @@
           <div class="container-fluid">
             <h1>Add Product</h1>
             <div class = div_deg>
-              <form action="">
-                <div>
+              <form action="{{url('upload_product')}}" method="post" enctype="multipart/form-data">
+                @csrf
+                <div class="input_deg">
                   <label>Product Title</label>
                   <input type="text" name="title" required>
                 </div>
-                <div>
+                <div class="input_deg">
                   <label >Description</label>
                   <textarea name="description" required></textarea>
                 </div>
-                <div>
+                <div class="input_deg">
                   <label>Price</label>
                   <input type="number" name="price" id="">
                 </div>
-                <div>
+                <div class="input_deg">
                   <label >Quantity</label>
                   <input type="number" name="quantity" id="">
                 </div>
-                <div>
+                <div class="input_deg">
                   <label >Product Category</label>
-                  <select name="" id="">
-                    <option value="">abc</option>
+                  <select name="category" required id="">
+
+                    <option value="">Select a Option</option>
+                    @foreach ($category as $category)
+                        <option value="{{$category->category_name}}">{{$category->category_name}}</option>
+                    @endforeach
+                    
                   </select>
                 </div>
-                <div>
+                <div class="input_deg">
                   <label >Product Image</label>
                   <input type="file" name="image" id="">
+                </div>
+                <div class="input_deg">
+                  <input class="btn btn-success" type="submit" value="Add Product">
                 </div>
               </form>
             </div>

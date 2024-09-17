@@ -21,9 +21,9 @@ require __DIR__.'/auth.php';
 
 Route::get('admin/dashboard',[HomeController::class,'index'])->middleware(['auth','admin']);
 
-Route::get('view_category',[AdminController::class,'view_category']);
+Route::get('view_category',[AdminController::class,'view_category'])->middleware(['auth','admin']);
 
-Route::POST('add_category',[AdminController::class,'add_category']);
+Route::POST('add_category',[AdminController::class,'add_category'])->middleware(['auth','admin']);
 
 Route::get('delete_category/{id}',[AdminController::class,'delete_category'])->middleware(['auth','admin']);
 
@@ -38,3 +38,7 @@ Route::post('upload_product',[AdminController::class,'upload_product'])->middlew
 Route::get('view_product',[AdminController::class,'view_product'])->middleware(['auth','admin']);
 
 Route::get('delete_product/{id}',[AdminController::class,'delete_product'])->middleware(['auth','admin']);
+
+Route::get('edit_product/{id}',[AdminController::class,'edit_product'])->middleware(['auth','admin']);
+
+Route::post('update_product/{id}',[AdminController::class,'update_product'])->middleware(['auth','admin']);

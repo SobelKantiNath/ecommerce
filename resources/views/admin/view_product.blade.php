@@ -30,6 +30,12 @@
         color: white;
         padding: 10px;
       }
+      input[type='search']
+      {
+        width: 400px;
+        height: 45px;
+        margin-left: 50px;
+      }
     </style>
   </head>
   <body>
@@ -45,6 +51,13 @@
       <div class="page-content">
         <div class="page-header">
           <div class="container-fluid">
+
+            <form action="{{url('search_product')}}" method="GET">
+              @csrf
+              <input type="search" name="search">
+              <input type="submit" class="btn btn-secondary" value="Search">
+            </form>
+
             <div class="div_deg">
               <table class="table_deg">
                 <tr>

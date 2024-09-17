@@ -143,4 +143,12 @@ class AdminController extends Controller
         toastr()->timeout(3000)->closeButton()->addSuccess('Category updated successfully');
         return redirect('/view_product');
     }
+
+    public function search_product(Request $request)
+    {
+        $search = $request->search;
+        $product = Product::where('title','LIKE','%'.$search.'%')->orWhere('category','Like','%'.$search.'%')->paginate(3);
+
+        return view('admin.view_product',compact('product'));
+    }
 }

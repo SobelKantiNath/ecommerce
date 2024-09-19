@@ -80,7 +80,7 @@
                     <td>{{$products->price}}</td>
                     <td>{{$products->quantity}}</td>
                     <td>
-                      <img height="100px" width="150px" src="products/{{$products->image}}" alt="">
+                      <img height="200px" width="250px" src="products/{{$products->image}}" alt="">
                     </td>
                     <td>
                       <a class="btn btn-success" href="{{url('edit_product',$products->id)}}">Edit</a>

@@ -151,4 +151,9 @@ class AdminController extends Controller
 
         return view('admin.view_product',compact('product'));
     }
+
+    public function view_orders()
+    {
+        return view('admin.orders');
+    }
 }

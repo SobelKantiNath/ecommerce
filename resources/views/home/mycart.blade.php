@@ -41,7 +41,7 @@
     .order_deg
     {
       padding-right: 100px;
-      margin-top: -200px;
+      margin-top: -80px;
     }
 
     label
@@ -68,8 +68,8 @@
     <div class = div_deg>
 
       <div class="order_deg">
-        <form action="{{url('confirm_order')}}" method="post">
-          @csfr
+        <form action="{{url('confirm_order')}}" method="POST">
+          @csrf
           <div class="div_gap">
             <label for="">Receiver Name :</label>
             <input type="text" name="name" id="" value="{{Auth::user()->name}}">

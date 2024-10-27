@@ -99,18 +99,29 @@ class HomeController extends Controller
         $userid = Auth::user()->id;
         $cart = Cart::where('user_id',$userid)->get();
 
-        $order = new Order;
         foreach($cart as $carts)
         {
             $order = new Order;
+
             $order->name = $name;
+
             $order->rec_address = $address;
+
             $order->phone = $phone;
+
             $order->user_id = $userid;
+
             $order->product_id = $carts->product_id;
-            $order->save();
-           
             
+            $order->save();   
+        }
+        // Cart::where('user_id', $userid)->delete();
+        $cart_remove = Cart::where('user_id',$userid)->get();
+
+        foreach($cart_remove as $remove)
+        {
+            $data = Cart::find($remove->id);
+            $data->delete();
         }
         return redirect()->back();
     }

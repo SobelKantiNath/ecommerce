@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Order;
 class AdminController extends Controller
 {
     public function view_category()
@@ -154,6 +155,14 @@ class AdminController extends Controller
 
     public function view_orders()
     {
-        return view('admin.orders');
+        $data = Order::all();
+        
+        return view('admin.orders', compact('data'));
+    }
+
+    public function on_the_way($id)
+    {
+        $data = Order::find($id);
+        $data->status = 'On the way';
     }
 }
